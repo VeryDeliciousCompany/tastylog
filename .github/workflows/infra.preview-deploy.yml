@@ -59,3 +59,15 @@ jobs:
             -input=false \
             -no-color \
             -detailed-exitcode
+      - name: Check exit code
+        run: |
+          exit_code=$?
+          echo "Exit code: $exit_code"
+          if [ $exit_code -eq 2 ]; then
+            echo "Changes detected"
+          elif [ $exit_code -eq 0 ]; then
+            echo "No changes detected"
+          else
+            echo "An error occurred"
+            exit $exit_code
+          fi
